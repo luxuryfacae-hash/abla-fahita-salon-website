@@ -29,3 +29,5 @@ Thumbs.db
 # misc
 .playwright-mcp/
 *.swp
+
+.vercel
