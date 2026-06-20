@@ -74,6 +74,10 @@ export default function Hero() {
                 <ArrowRight className="h-5 w-5" />
               </Link>
             </div>
+
+            <div className="pointer-events-auto mt-10 md:hidden">
+              <MirrorCarousel compact />
+            </div>
           </motion.div>
 
         </div>

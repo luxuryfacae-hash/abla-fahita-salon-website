@@ -18,7 +18,7 @@ const mirrors = [
   { src: "/gallery/mirrors/service-mirror-10.png", title: "Salon Offers", sub: "Premium packages" },
 ];
 
-export default function MirrorCarousel({ immersive = false }: { immersive?: boolean }) {
+export default function MirrorCarousel({ immersive = false, compact = false }: { immersive?: boolean; compact?: boolean }) {
   const stageRef = useRef<HTMLDivElement>(null);
   const [stageW, setStageW] = useState(900);
   const [focusedIndex, setFocusedIndex] = useState(0);
@@ -28,7 +28,11 @@ export default function MirrorCarousel({ immersive = false }: { immersive?: bool
   const isSpringingRef = useRef(false);
   const reduceMotion = useReducedMotion();
   const slotDeg = 360 / mirrors.length;
-  const radius = immersive ? Math.max(300, Math.min(560, stageW * 0.31)) : Math.max(220, Math.min(330, stageW * 0.4));
+  const radius = compact
+    ? Math.max(150, Math.min(220, stageW * 0.45))
+    : immersive
+      ? Math.max(300, Math.min(560, stageW * 0.31))
+      : Math.max(220, Math.min(330, stageW * 0.4));
 
   useEffect(() => {
     if (!stageRef.current) return;
@@ -102,7 +106,11 @@ export default function MirrorCarousel({ immersive = false }: { immersive?: bool
     <div
       ref={stageRef}
       className={`relative mx-auto w-full select-none overflow-hidden [perspective:1600px] ${
-        immersive ? "h-[76vh] min-h-[560px] max-w-none rounded-none" : "h-[520px] max-w-[680px] rounded-[2rem]"
+        compact
+          ? "h-[380px] max-w-[420px] rounded-[2rem]"
+          : immersive
+            ? "h-[76vh] min-h-[560px] max-w-none rounded-none"
+            : "h-[520px] max-w-[680px] rounded-[2rem]"
       }`}
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(228,0,124,0.32),transparent_34%),radial-gradient(circle_at_50%_90%,rgba(246,198,207,0.24),transparent_34%)]" />
@@ -119,6 +127,7 @@ export default function MirrorCarousel({ immersive = false }: { immersive?: bool
             radius={radius}
             isFocused={index === focusedIndex}
             immersive={immersive}
+            compact={compact}
             onFocus={() => setFocusedIndex(index)}
           />
         ))}
@@ -145,6 +154,7 @@ function MirrorPane({
   radius,
   isFocused,
   immersive,
+  compact,
   onFocus,
 }: {
   item: (typeof mirrors)[number];
@@ -152,6 +162,7 @@ function MirrorPane({
   radius: number;
   isFocused: boolean;
   immersive: boolean;
+  compact: boolean;
   onFocus: () => void;
 }) {
   return (
@@ -171,7 +182,11 @@ function MirrorPane({
         animate={{ scale: isFocused ? 1.08 : 0.68, opacity: isFocused ? 1 : 0.34 }}
         transition={{ type: "spring", stiffness: 180, damping: 22 }}
         className={`relative overflow-hidden rounded-[46%] border-[3px] bg-salonBlack/70 p-[7px] backdrop-blur-md ${
-          immersive ? "h-[250px] w-[162px] sm:h-[330px] sm:w-[216px]" : "h-[226px] w-[146px] sm:h-[258px] sm:w-[168px]"
+          compact
+            ? "h-[170px] w-[110px]"
+            : immersive
+              ? "h-[250px] w-[162px] sm:h-[330px] sm:w-[216px]"
+              : "h-[226px] w-[146px] sm:h-[258px] sm:w-[168px]"
         }`}
         style={{
           borderColor: isFocused ? "rgba(255,209,220,0.95)" : "rgba(228,0,124,0.40)",
