@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold-gradient: linear-gradient(135deg, #e4007c, #ffd1dc, #f6c6cf);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #fff5f8;
+  color: #222222;
+}
+
+body::selection {
+  background: #e4007c;
+  color: #050505;
+}
+
+.gold-text {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine::after {
+  content: "";
+  position: absolute;
+  inset: -120% auto -120% -45%;
+  width: 36%;
+  transform: rotate(18deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.58), transparent);
+  transition: left 700ms ease;
+}
+
+.shine:hover::after {
+  left: 125%;
+}
+
+.arabic-pattern {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(228, 0, 124, 0.14) 1px, transparent 0),
+    linear-gradient(135deg, rgba(255, 245, 248, 0.95), rgba(246, 198, 207, 0.62));
+  background-size: 26px 26px, auto;
+}
+
+.mirror-scene {
+  perspective: 1200px;
+}
+
+.mirror-ring {
+  transform-style: preserve-3d;
+  animation: rotate-ring 24s linear infinite;
+}
+
+.mirror-card {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  box-shadow: inset 0 0 28px rgba(255, 255, 255, 0.34), 0 24px 60px rgba(138, 41, 66, 0.28);
+}
+
+.mirror-ring:hover {
+  animation-play-state: paused;
+}
+
+@keyframes rotate-ring {
+  from {
+    transform: rotateX(-7deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(-7deg) rotateY(360deg);
+  }
+}
+
+@keyframes bulb-glow {
+  0%, 100% { opacity: 0.65; }
+  50% { opacity: 1; }
+}
+
+.section-shell {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.focus-ring {
+  @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-salonGold focus-visible:ring-offset-2 focus-visible:ring-offset-ivory;
+}
