@@ -13,7 +13,7 @@ export default function ServiceCard({
       target="_blank"
       rel="noreferrer"
       aria-label={`Book ${service.title} on WhatsApp`}
-      className="group relative block aspect-square overflow-hidden rounded-lg shadow-soft transition hover:-translate-y-1 hover:shadow-gold"
+      className="group relative block aspect-square overflow-hidden rounded-xl bg-[#1a0710] transition hover:-translate-y-1 hover:shadow-gold"
     >
       {service.image && (
         <Image
